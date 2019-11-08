@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 1760px;
+            height: 1295px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/bt_range_2019_1.js"></script>
+        <script src="data/BullTrout_Lakes_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[41.27706745826759,-126.43735654910948],[49.318933698676794,-110.46669212797067]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var layer_OpenStreetMap_0 = L.tileLayer('http://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        function pop_bt_range_2019_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_bt_dis'] !== null ? Autolinker.link(String(feature.properties['FID_bt_dis'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BTID'] !== null ? Autolinker.link(String(feature.properties['BTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? Autolinker.link(String(feature.properties['NAME'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OCCUPANCY'] !== null ? Autolinker.link(String(feature.properties['OCCUPANCY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATE'] !== null ? Autolinker.link(String(feature.properties['STATE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATE2'] !== null ? Autolinker.link(String(feature.properties['STATE2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['H_USE_TYPE'] !== null ? Autolinker.link(String(feature.properties['H_USE_TYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SCALE'] !== null ? Autolinker.link(String(feature.properties['SCALE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HYDRO_SRC</th>\
+                        <td>' + (feature.properties['HYDRO_SRC'] !== null ? Autolinker.link(String(feature.properties['HYDRO_SRC'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EDIT_TYPE'] !== null ? Autolinker.link(String(feature.properties['EDIT_TYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EDIT_COMNT'] !== null ? Autolinker.link(String(feature.properties['EDIT_COMNT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BT_SOURCE'] !== null ? Autolinker.link(String(feature.properties['BT_SOURCE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WaWaterTyp'] !== null ? Autolinker.link(String(feature.properties['WaWaterTyp'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FWS_OFFICE'] !== null ? Autolinker.link(String(feature.properties['FWS_OFFICE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Review'] !== null ? Autolinker.link(String(feature.properties['Review'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FWSID'] !== null ? Autolinker.link(String(feature.properties['FWSID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROP_CH'] !== null ? Autolinker.link(String(feature.properties['PROP_CH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['New'] !== null ? Autolinker.link(String(feature.properties['New'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LocalPop'] !== null ? Autolinker.link(String(feature.properties['LocalPop'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_Core_A'] !== null ? Autolinker.link(String(feature.properties['FID_Core_A'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Core_Area'] !== null ? Autolinker.link(String(feature.properties['Core_Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['State_1'] !== null ? Autolinker.link(String(feature.properties['State_1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Recovery_U'] !== null ? Autolinker.link(String(feature.properties['Recovery_U'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Management'] !== null ? Autolinker.link(String(feature.properties['Management'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHSU'] !== null ? Autolinker.link(String(feature.properties['CHSU'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHU'] !== null ? Autolinker.link(String(feature.properties['CHU'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? Autolinker.link(String(feature.properties['Shape_Leng'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? Autolinker.link(String(feature.properties['Shape_Area'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Acres</th>\
+                        <td>' + (feature.properties['Acres'] !== null ? Autolinker.link(String(feature.properties['Acres'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Hectares</strong><br />' + (feature.properties['Hectares'] !== null ? Autolinker.link(String(feature.properties['Hectares'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LP_Name'] !== null ? Autolinker.link(String(feature.properties['LP_Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Notes'] !== null ? Autolinker.link(String(feature.properties['Notes'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['RecovUnit'] !== null ? Autolinker.link(String(feature.properties['RecovUnit'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MultiPops'] !== null ? Autolinker.link(String(feature.properties['MultiPops'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>InCOED</strong><br />' + (feature.properties['InCOED'] !== null ? Autolinker.link(String(feature.properties['InCOED'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Geo_Source'] !== null ? Autolinker.link(String(feature.properties['Geo_Source'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OldPopID'] !== null ? Autolinker.link(String(feature.properties['OldPopID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NewPopID'] !== null ? Autolinker.link(String(feature.properties['NewPopID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CoreArea11'] !== null ? Autolinker.link(String(feature.properties['CoreArea11'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WB_ID'] !== null ? Autolinker.link(String(feature.properties['WB_ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['2005_CH'] !== null ? Autolinker.link(String(feature.properties['2005_CH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['2010_CH'] !== null ? Autolinker.link(String(feature.properties['2010_CH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TribTo'] !== null ? Autolinker.link(String(feature.properties['TribTo'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HUC_4'] !== null ? Autolinker.link(String(feature.properties['HUC_4'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['YEAR_ADDED'] !== null ? Autolinker.link(String(feature.properties['YEAR_ADDED'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ADDED_FROM'] !== null ? Autolinker.link(String(feature.properties['ADDED_FROM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DETERMINAT'] !== null ? Autolinker.link(String(feature.properties['DETERMINAT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Source'] !== null ? Autolinker.link(String(feature.properties['Source'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CONFIDENCE'] !== null ? Autolinker.link(String(feature.properties['CONFIDENCE'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_bt_range_2019_1_0() {
+            return {
+                pane: 'pane_bt_range_2019_1',
+                opacity: 1,
+                color: 'rgba(77,108,157,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_bt_range_2019_1');
+        map.getPane('pane_bt_range_2019_1').style.zIndex = 401;
+        map.getPane('pane_bt_range_2019_1').style['mix-blend-mode'] = 'normal';
+        var layer_bt_range_2019_1 = new L.geoJson(json_bt_range_2019_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_bt_range_2019_1',
+            layerName: 'layer_bt_range_2019_1',
+            pane: 'pane_bt_range_2019_1',
+            onEachFeature: pop_bt_range_2019_1,
+            style: style_bt_range_2019_1_0,
+        });
+        bounds_group.addLayer(layer_bt_range_2019_1);
+        map.addLayer(layer_bt_range_2019_1);
+        function pop_BullTrout_Lakes_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BTID'] !== null ? Autolinker.link(String(feature.properties['BTID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Prop_CH'] !== null ? Autolinker.link(String(feature.properties['Prop_CH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['State'] !== null ? Autolinker.link(String(feature.properties['State'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['RecoveryUn'] !== null ? Autolinker.link(String(feature.properties['RecoveryUn'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHU_Num'] !== null ? Autolinker.link(String(feature.properties['CHU_Num'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHU'] !== null ? Autolinker.link(String(feature.properties['CHU'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CHSU'] !== null ? Autolinker.link(String(feature.properties['CHSU'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['H_USE_TYPE'] !== null ? Autolinker.link(String(feature.properties['H_USE_TYPE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OCCUPANCY'] !== null ? Autolinker.link(String(feature.properties['OCCUPANCY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Acres'] !== null ? Autolinker.link(String(feature.properties['Acres'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Hectares'] !== null ? Autolinker.link(String(feature.properties['Hectares'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FCH'] !== null ? Autolinker.link(String(feature.properties['FCH'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Exclusion'] !== null ? Autolinker.link(String(feature.properties['Exclusion'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BullTrout_Lakes_2_0() {
+            return {
+                pane: 'pane_BullTrout_Lakes_2',
+                opacity: 1,
+                color: 'rgba(38,89,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(55,126,184,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BullTrout_Lakes_2');
+        map.getPane('pane_BullTrout_Lakes_2').style.zIndex = 402;
+        map.getPane('pane_BullTrout_Lakes_2').style['mix-blend-mode'] = 'normal';
+        var layer_BullTrout_Lakes_2 = new L.geoJson(json_BullTrout_Lakes_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BullTrout_Lakes_2',
+            layerName: 'layer_BullTrout_Lakes_2',
+            pane: 'pane_BullTrout_Lakes_2',
+            onEachFeature: pop_BullTrout_Lakes_2,
+            style: style_BullTrout_Lakes_2_0,
+        });
+        bounds_group.addLayer(layer_BullTrout_Lakes_2);
+        map.addLayer(layer_BullTrout_Lakes_2);
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_bt_range_2019_1)) {
+                    if (map.getZoom() <= 19 && map.getZoom() >= 12) {
+                        layer_bt_range_2019_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_bt_range_2019_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+                if (map.hasLayer(layer_bt_range_2019_1)) {
+                    if (map.getZoom() <= 19 && map.getZoom() >= 12) {
+                        layer_bt_range_2019_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_bt_range_2019_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        </script>
+    </body>
+</html>
